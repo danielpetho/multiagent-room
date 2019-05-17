@@ -1,0 +1,12 @@
+MAS smart_room {
+
+	infrastructure: Centralised
+
+	environment: Room
+
+	agents:
+		agent1 sample_agent;
+
+	aslSourcePath:
+		"src/asl";
+}
