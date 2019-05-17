@@ -1,6 +1,7 @@
 ### Eclipse ###
 .metadata
 bin/
+/bin
 tmp/
 *.tmp
 *.bak
@@ -10,6 +11,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+
+.stop___MAS
 
 ### Eclipse Patch ###
 # Eclipse Core
