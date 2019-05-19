@@ -2,6 +2,11 @@
 
 /* Initial goals */
 
-!start.
+
 
 /* Plans */
+
++!order(food) : true
+	<-  .print("Ordering food");
+		.send(feeding_system, tell, ordered(food)).
+

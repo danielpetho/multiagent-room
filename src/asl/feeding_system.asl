@@ -1,4 +1,4 @@
-//TODOs: Quantity, add belief feedingTime after x time
+//TODOs: Quantity
 
 
 /* Initial beliefs and rules */
@@ -9,6 +9,7 @@ stock(food).
 
 /* Initial goals */
 
+!check_feeding_time.
 
 /* Plans */
 
@@ -17,6 +18,7 @@ stock(food).
 +!fillBowl(food) : stock(food)
 	<-	-feedingTime;
 		+has(food);
+		.print("Filled");
 		true.
 	
 //try to fill bowl, and ask owner to stock if there is not enough 
@@ -30,7 +32,12 @@ stock(food).
 //when the owner fill the stock, add belief there is food in stock
 +delivered(food) [source(owner)] : true
 	<- +stock(food).
-	
+
++!check_feeding_time : true
+	<-	.wait(X * 1000 * 10000);
+		.print("It's feeding time");
+		+feedingTime;
+		!check_feeding_time.	
 
 
 	

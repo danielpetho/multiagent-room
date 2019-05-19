@@ -5,7 +5,7 @@ has(food).
 
 /* Initial goals */
 
-!eat(food).
+!check_hungry.
 
 /* Plans */
 
@@ -24,9 +24,16 @@ has(food).
 //if there is no food, ask
 @eat3
 +hungry : not has(food)
-	<- .send(feeding_system, achieve, has(food)).
+	<- 	.send(feeding_system, achieve, has(food));
+		.print("Give me food").
+		
++!check_hungry : true
+   	<- 	+hungry;
+   		.print("I'm hungry");
+   		.random(X); .wait(X * 1000 * 1000);  // i get hungry random times
+		!check_hungry.
 	
-//TODO after x(rand) time add to belief base: hungry
+
 
 	
  
