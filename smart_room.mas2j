@@ -5,7 +5,7 @@ MAS smart_room {
 	environment: Room
 
 	agents:
-		agent1 sample_agent;
+		plant_manager; thermo_light; pet; owner; feeding_system;
 
 	aslSourcePath:
 		"src/asl";
