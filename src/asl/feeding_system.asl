@@ -19,22 +19,32 @@ stock(food).
 	<-	-feedingTime;
 		+has(food);
 		.print("Filled");
+		.send(pet, tell, has(food));
 		true.
 	
 //try to fill bowl, and ask owner to stock if there is not enough 
 @fill2
 +!fillBowl(food) : not stock(food)
-	<-	.send(owner, achieve, order(food)).
-	
-+feedingTime : not has(food)
+	<-	.send(owner, achieve, order(food));
+		.print("We run out of food!").
+
++feedingTime : ~has(food)
 	<- !fillBowl(food).
+	
++feedingTime : has(food)
+	<- !fillBowl(food);
+		.print("It's dead.").
+		
+//Update the state of the bowl
++eaten(has(food)) [source(pet)] : true
+	<- +~has(food).
 	
 //when the owner fill the stock, add belief there is food in stock
 +delivered(food) [source(owner)] : true
 	<- +stock(food).
 
 +!check_feeding_time : true
-	<-	.wait(X * 1000 * 10000);
+	<-	.wait(10000);
 		.print("It's feeding time");
 		+feedingTime;
 		!check_feeding_time.	

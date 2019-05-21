@@ -1,3 +1,4 @@
+
 /* Initial beliefs and rules */
 //hungry and there is food in the bowl
 hungry.
@@ -14,7 +15,9 @@ has(food).
 +!eat(food) : has(food) & hungry
 	<- 	-has(food);
 		-hungry;
-		true.
+		true;
+		.send(feeding_system, tell, ~has(food));
+		.print("Hurray! It's Delicious!").
 
 //eat if hungry
 @eat2	
@@ -28,9 +31,10 @@ has(food).
 		.print("Give me food").
 		
 +!check_hungry : true
-   	<- 	+hungry;
-   		.print("I'm hungry");
-   		.random(X); .wait(X * 1000 * 1000);  // i get hungry random times
+	<-	.print("I'm hungry");
+   		+hungry;
+   		.random(X);
+		.wait(X*10000+10000);  // i get hungry random times
 		!check_hungry.
 	
 
