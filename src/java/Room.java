@@ -3,6 +3,7 @@
 import jason.asSyntax.*;
 import jason.asSyntax.parser.ParseException;
 import jason.environment.*;
+
 import java.util.logging.*;
 
 public class Room extends Environment {
@@ -20,10 +21,13 @@ public class Room extends Environment {
 			e.printStackTrace();
 		}
     }
+    
+    
 
     @Override
     public boolean executeAction(String agName, Structure action) {
-        logger.info("executing: "+action+", but not implemented!");
+        logger.info("Hey, I'm trying to execute "+action+", but not implemented!");
+        logger.info(agName);
         if (true) { // you may improve this condition
              informAgsEnvironmentChanged();
         }

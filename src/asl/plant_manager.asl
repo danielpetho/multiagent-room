@@ -2,12 +2,13 @@
 
 /* Initial goals */
 
-!checkMoisture(M).
+!checkMoisture.
 
 /* Plans */
 
 +!irrigate(plant) : M < 10 
 	<- true.
 	
-+!checkMoisture(M) : true
-	<- room.getMoisture(M).
++!checkMoisture : true
+	<- 	room.getMoisture(M);
+		+M.
