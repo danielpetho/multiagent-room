@@ -24,7 +24,7 @@ public class RoomView {
 	JFrame frame;
 	
 	//labels
-	JLabel winLabel1, winLabel2, winLabel3, fillLabel, tempLabel, moistLabel, humLabel, lightLabel;
+	JLabel winLabel1, winLabel2, winLabel3, stockLabel, tempLabel, moistLabel, humLabel, lightLabel;
 	
 	//buttons
 	JButton btnWin1,btnWin2,btnWin3, btnLight, btnFill;
@@ -34,6 +34,9 @@ public class RoomView {
 	
 	//spinners
 	JSpinner spTemp, spMoist, spHum;
+	
+	//progressbar for stock
+	JProgressBar stock;
 	
 
 	/**
@@ -102,6 +105,7 @@ public class RoomView {
 		humLabel.setText("Humidity: " + rmodel.hum + "%");
 		moistLabel.setText("Moisture: " + rmodel.moist + "%");
 		tempLabel.setText("Temperature: " + rmodel.temp + "°C");
+		stock.setValue(rmodel.stock);
 		
 	}
 	/**
@@ -166,6 +170,16 @@ public class RoomView {
 		humLabel.setBounds(50, 250, 200, 30);
 		
 		
+		stockLabel = new JLabel("Stock:");
+		stockLabel.setBounds(50, 290, 200, 20);
+		stock = new JProgressBar();
+		stock.setValue(rmodel.stock);
+		stock.setStringPainted(true);
+		stock.setBounds(140, 290, 100, 20);
+		btnFill = new JButton("Fill");
+		btnFill.setBounds(230, 290, 80, 20);
+		
+		
 		
 		btnWin1.addActionListener(new ActionListener() {
 			
@@ -221,6 +235,13 @@ public class RoomView {
 			}  
 		});
 		
+		btnFill.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				rmodel.stock();		
+			}  
+		});
+		
 		spTemp.addChangeListener(new ChangeListener() {  
 	        public void stateChanged(ChangeEvent e) {
 	        	JSpinner spin = (JSpinner) e.getSource();
@@ -248,9 +269,7 @@ public class RoomView {
 	        }  
 	     });
 		
-	   
-		
-		btnFill = new JButton("Fill");	
+	  	
 		frame.setBounds(100, 100, 400, 400);
 		
 		frame.add(spTemp);
@@ -274,6 +293,11 @@ public class RoomView {
 		frame.add(lWin1);
 		frame.add(lWin2);
 		frame.add(lWin3);
+		
+		frame.add(stockLabel);
+		frame.add(stock);
+		frame.add(btnFill);
+		
 		refresh();
 		frame.setVisible(true);
 		

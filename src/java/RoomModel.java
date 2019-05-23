@@ -2,8 +2,10 @@
 public class RoomModel {
 	
 	boolean[] windows = new boolean[3];
-	int temp, moist, hum;
+	int temp, moist, hum, stock;
 	boolean light;
+	boolean hasfood;
+
 	
 	RoomView view;
 	
@@ -12,6 +14,8 @@ public class RoomModel {
 		windows[1] = true;
 		windows[2] = true;
 		light = false;
+		stock = 100;
+		hasfood = false;
 	}
 	
 	public void setView(RoomView view) {
@@ -78,9 +82,23 @@ public class RoomModel {
 		return true;
 	}
 	
-	int getTemp() {
-		return this.temp;
+	boolean stock() {
+		this.stock = 100;
+		view.refresh();
+		return true;
 	}
+	
+	boolean fill(int n) {
+		if(stock > 0) {
+			this.stock -= n;
+			view.refresh();
+			return true;
+		} else {
+			return false;
+		}
+		
+	}
+	
 	
 	
 
