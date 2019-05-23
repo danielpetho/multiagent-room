@@ -21,10 +21,10 @@ public class RoomView {
 
 	RoomModel rmodel;
 	
-	private JFrame frame;
+	JFrame frame;
 	
 	//labels
-	JLabel winLabel1, winLabel2, winLabel3, fillLabel, tempLabel, moistLabel, humLabel;
+	JLabel winLabel1, winLabel2, winLabel3, fillLabel, tempLabel, moistLabel, humLabel, lightLabel;
 	
 	//buttons
 	JButton btnWin1,btnWin2,btnWin3, btnLight, btnFill;
@@ -33,7 +33,7 @@ public class RoomView {
 	JLabel lWin1, lWin2, lWin3, lLight, lFill, lTemp, lMoisture, lHum;
 	
 	//spinners
-	JSpinner spTemp, spMoisture, spHum;
+	JSpinner spTemp, spMoist, spHum;
 	
 
 	/**
@@ -65,7 +65,45 @@ public class RoomView {
 		rmodel = model;
 	}
 	
-
+	public void refresh() {
+		
+		if(rmodel.windows[0]) {
+			btnWin1.setText("Close");
+			lWin1.setText("Open");
+		} else {
+			btnWin1.setText("Open");
+			lWin1.setText("Closed");
+		}
+		
+		if(rmodel.windows[1]) {
+			btnWin2.setText("Close");
+			lWin2.setText("Open");
+		} else {
+			btnWin2.setText("Open");
+			lWin2.setText("Closed");
+		}
+		
+		if(rmodel.windows[2]) {
+			btnWin3.setText("Close");
+			lWin2.setText("Open");
+		} else {
+			btnWin3.setText("Open");
+			lWin3.setText("Closed");
+		}
+		
+		if(rmodel.light) {
+			btnLight.setText("Off");
+			lLight.setText("On");
+		} else {
+			btnLight.setText("On");
+			lLight.setText("Off");
+		}
+		
+		humLabel.setText("Humidity: " + rmodel.hum + "%");
+		moistLabel.setText("Moisture: " + rmodel.moist + "%");
+		tempLabel.setText("Temperature: " + rmodel.temp + "°C");
+		
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -74,45 +112,58 @@ public class RoomView {
 		rmodel = model;
 				
 		frame = new JFrame("Multiagent Smart Room");
-		frame.setSize(800, 800);
+		frame.setSize(500, 500);
 		frame.setLayout(null);
 		
-		winLabel1 = new JLabel("Window 1");
-		winLabel1.setFont(new Font("Serif", Font.BOLD, 17));
-		winLabel1.setBounds(100,0, 200,30); 
+		winLabel1 = new JLabel("Window 1:");
+		winLabel1.setFont(new Font("Ubuntu", Font.BOLD, 15));
+		winLabel1.setBounds(50,50, 80,20); 
 		btnWin1 = new JButton("Close");
-		btnWin1.setBounds(50,50, 80,20);
+		btnWin1.setBounds(230,50, 80,20);
 		lWin1 = new JLabel("Open");
-		lWin1.setBounds(200,50, 80,20); 
+		lWin1.setBounds(140,50, 80,20); 		
 		
-		
-		winLabel2 = new JLabel("Window 2");
-		winLabel2.setBounds(100,100, 200,30); 
-		winLabel2.setFont(new Font("Serif", Font.BOLD, 17));
+		winLabel2 = new JLabel("Window 2:");
+		winLabel2.setBounds(50,80, 200,20); 
+		winLabel2.setFont(new Font("Ubuntu", Font.BOLD, 15));
 		btnWin2 = new JButton("Close");
-		btnWin2.setBounds(50,150, 80,20);
+		btnWin2.setBounds(230,80, 80,20);
 		lWin2 = new JLabel("Open");
-		lWin2.setBounds(200,150, 80,20);
+		lWin2.setBounds(140,80, 80,20);
 		
-		winLabel3 = new JLabel("Window 3");
-		winLabel3.setBounds(100,200, 200,30);
-		winLabel3.setFont(new Font("Serif", Font.BOLD, 17));
+		winLabel3 = new JLabel("Window 3:");
+		winLabel3.setBounds(50,110, 200,20);
+		winLabel3.setFont(new Font("Ubuntu", Font.BOLD, 15));
 		btnWin3 = new JButton("Close");
-		btnWin3.setBounds(50,250, 80,20);
+		btnWin3.setBounds(230,110, 80,20);
 		lWin3 = new JLabel("Open");
-		lWin3.setBounds(200,250, 80,20); 
+		lWin3.setBounds(140,110, 80,20); 
 		
-		
-		
+		lightLabel = new JLabel("Internal Lights:");
+		lightLabel.setBounds(30,145, 200,20);
+		lightLabel.setFont(new Font("Ubuntu", Font.BOLD, 15));
+		btnLight = new JButton("Off");
+		btnLight.setBounds(230,145, 60,20);
+		lLight = new JLabel("On");
+		lLight.setBounds(160,145, 80,20);	
 	
-		SpinnerModel tempValue = new SpinnerNumberModel(23, -10, 35, 1);
+		SpinnerModel tempValue = new SpinnerNumberModel(rmodel.temp, -10, 35, 1);
 		spTemp = new JSpinner(tempValue);
-		spTemp.setBounds(50, 300, 50, 50);
-		tempLabel = new JLabel("Temperature: 23");
-		tempLabel.setBounds(200, 300, 200, 30);
+		spTemp.setBounds(230, 180, 50, 30);
+		tempLabel = new JLabel("Temperature: " + rmodel.temp + "°C");
+		tempLabel.setBounds(50, 180, 200, 30);
 		
-		SpinnerModel moistValue = new SpinnerNumberModel(23, -10, 35, 1);
-		SpinnerModel humValue = new SpinnerNumberModel(23, -10, 35, 1);
+		SpinnerModel moistValue = new SpinnerNumberModel(rmodel.moist, 0, 100, 1);
+		spMoist = new JSpinner(moistValue);
+		spMoist.setBounds(230, 215, 50, 30);
+		moistLabel = new JLabel("Moisture: " + rmodel.moist + "%");
+		moistLabel.setBounds(50, 215, 200, 30);
+		
+		SpinnerModel humValue = new SpinnerNumberModel(rmodel.hum, 0, 100, 1);
+		spHum = new JSpinner(humValue);
+		spHum.setBounds(230, 250, 50, 30);
+		humLabel = new JLabel("Humidity: " + rmodel.hum + "%");
+		humLabel.setBounds(50, 250, 200, 30);
 		
 		
 		
@@ -121,12 +172,8 @@ public class RoomView {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(lWin1.getText() == "Open") {
-					btnWin1.setText("Open");
-					lWin1.setText("Closed");
 					rmodel.closeWindow(0);
 				} else {
-					btnWin1.setText("Close");
-					lWin1.setText("Open");
 					rmodel.openWindow(0);
 				}
 				
@@ -138,12 +185,10 @@ public class RoomView {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(lWin2.getText() == "Open") {
-					btnWin2.setText("Open");
-					lWin2.setText("Closed");
+
 					rmodel.closeWindow(1);
 				} else {
-					btnWin2.setText("Close");
-					lWin2.setText("Open");
+
 					rmodel.openWindow(1);
 				}
 				
@@ -155,13 +200,22 @@ public class RoomView {
 			public void actionPerformed(ActionEvent e) {
 				
 				if(lWin3.getText() == "Open") {
-					btnWin3.setText("Open");
-					lWin3.setText("Closed");
 					rmodel.closeWindow(2);
 				} else {
-					btnWin3.setText("Close");
-					lWin3.setText("Open");
 					rmodel.openWindow(2);
+				}
+				
+			}  
+		});
+		
+		btnLight.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				if(lLight.getText() == "On") {
+					rmodel.offLight();
+				} else {
+					rmodel.onLight();
 				}
 				
 			}  
@@ -171,19 +225,46 @@ public class RoomView {
 	        public void stateChanged(ChangeEvent e) {
 	        	JSpinner spin = (JSpinner) e.getSource();
 	        	int value = (Integer) spin.getValue();
-	        	tempLabel.setText("Temperature : " + value);
+	        	tempLabel.setText("Temperature: " + value + "°C");
 	        	rmodel.setTemp(value);
 	        }  
-	     });  
+	     });
+		
+		spMoist.addChangeListener(new ChangeListener() {  
+	        public void stateChanged(ChangeEvent e) {
+	        	JSpinner spin = (JSpinner) e.getSource();
+	        	int value = (Integer) spin.getValue();
+	        	moistLabel.setText("Moisture: " + value + "%");
+	        	rmodel.setMoist(value);
+	        }  
+	     });
+		
+		spHum.addChangeListener(new ChangeListener() {  
+	        public void stateChanged(ChangeEvent e) {
+	        	JSpinner spin = (JSpinner) e.getSource();
+	        	int value = (Integer) spin.getValue();
+	        	humLabel.setText("Humidity: " + value + "%");
+	        	rmodel.setHum(value);
+	        }  
+	     });
 		
 	   
 		
-		btnLight = new JButton("On");
 		btnFill = new JButton("Fill");	
-		frame.setBounds(100, 100, 800, 600);
+		frame.setBounds(100, 100, 400, 400);
 		
 		frame.add(spTemp);
 		frame.add(tempLabel);
+		frame.add(spMoist);
+		frame.add(moistLabel);
+		frame.add(spHum);
+		frame.add(humLabel);
+		
+		frame.add(lightLabel);
+		frame.add(btnLight);
+		frame.add(lLight);
+		
+		
 		frame.add(winLabel1);
 		frame.add(winLabel2);
 		frame.add(winLabel3);
@@ -193,6 +274,7 @@ public class RoomView {
 		frame.add(lWin1);
 		frame.add(lWin2);
 		frame.add(lWin3);
+		refresh();
 		frame.setVisible(true);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

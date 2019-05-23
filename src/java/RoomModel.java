@@ -3,13 +3,15 @@ public class RoomModel {
 	
 	boolean[] windows = new boolean[3];
 	int temp, moist, hum;
+	boolean light;
 	
 	RoomView view;
 	
 	public RoomModel() {
-		windows[0] = true;
+		windows[0] = false;
 		windows[1] = true;
 		windows[2] = true;
+		light = false;
 	}
 	
 	public void setView(RoomView view) {
@@ -21,7 +23,27 @@ public class RoomModel {
 	boolean openWindow(int win) {
 		if(!windows[win]) {
 			windows[win] = true;
-			System.out.println(windows[win]);
+			view.refresh();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	boolean offLight() {
+		if(light) {
+			light = false;
+			view.refresh();
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	boolean onLight() {
+		if(!light) {
+			light = true;
+			view.refresh();
 			return true;
 		} else {
 			return false;
@@ -31,7 +53,7 @@ public class RoomModel {
 	boolean closeWindow(int win) {
 		if(windows[win]) {
 			windows[win] = false;
-			System.out.println(windows[win]);
+			view.refresh();
 			return true;
 		} else {
 			return false;
@@ -40,17 +62,19 @@ public class RoomModel {
 	
 	boolean setHum(int hum) {
 		this.hum = hum;
+		view.refresh();
 		return true;
 	}
 	
 	boolean setMoist(int moist) {
 		this.moist = moist;
+		view.refresh();
 		return true;
 	}
 	
 	boolean setTemp(int temp) {
 		this.temp = temp;
-		System.out.println(temp);
+		view.refresh();
 		return true;
 	}
 	

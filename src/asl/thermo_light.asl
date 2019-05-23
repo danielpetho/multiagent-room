@@ -12,7 +12,9 @@
 	<- .print("Wind 1 Closed!").
 	
 +term : true
-	<- !close(win1).
+	<- .print("na!");
+		close(win1).
 
 +!close(win1) : true
-	<- .print("bezárom%").
+	<- .print("bezárom%");
+	true.

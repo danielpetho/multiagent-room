@@ -19,12 +19,13 @@ public class Room extends Environment {
     public void init(String[] args) {
     	rmodel = new RoomModel();
     	view = new RoomView(rmodel);
+    	rmodel.setView(view);
 		updatePercepts();
     }
     
     public static void main(String[] args) {
     	
-    	rmodel.setView(view);
+    	
     }
 
     @Override
@@ -32,13 +33,21 @@ public class Room extends Environment {
     	
     	boolean result = false;
     	
+    	updatePercepts();
+    	informAgsEnvironmentChanged();
+    	
+    	System.out.println("["+agName+"] doing: "+action);
+    	
         if (true) { // you may improve this condition
-        	if(action.equals("close(win1)")) {
+        	if(action.equals(Literal.parseLiteral("close(win1)"))) {
         		System.out.println("bezártam");
         		result = rmodel.closeWindow(0);
         	} else if (action.equals("open(win1)")) {
+        		System.out.println("asdsa");
         		//result = rmodel.openWindow(0);
-        	} 
+        	} else {
+        		System.out.println("else");
+        	}
         	 updatePercepts();
              informAgsEnvironmentChanged();
         }
