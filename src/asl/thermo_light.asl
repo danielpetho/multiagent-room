@@ -5,11 +5,14 @@
 
 /* Plans */
 
-+!checkTemperature(T) : true
-	<- room.getTemperature(T).
++win1Open : true
+	<- .print("Wind 1 Open!").
 	
-+!checkInternalLight(I) : true
-	<- room.getInternalLight(I).
++win1Closed : true
+	<- .print("Wind 1 Closed!").
 	
-+!checkWindows(W1, W2, W3) : true
-	<- room.getWindows(W1, W2, W3).
++term : true
+	<- !close(win1).
+
++!close(win1) : true
+	<- .print("bezárom%").
