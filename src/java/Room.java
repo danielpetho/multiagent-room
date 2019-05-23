@@ -91,8 +91,7 @@ public class Room extends Environment {
         			logger.info("Empty value: fill");
         		}
         	}
-        	
-        	
+        	   	
         	 updatePercepts();
              informAgsEnvironmentChanged();
         }

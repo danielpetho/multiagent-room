@@ -88,7 +88,7 @@ public class RoomView {
 		
 		if(rmodel.windows[2]) {
 			btnWin3.setText("Close");
-			lWin2.setText("Open");
+			lWin3.setText("Open");
 		} else {
 			btnWin3.setText("Open");
 			lWin3.setText("Closed");
