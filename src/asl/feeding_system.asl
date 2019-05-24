@@ -7,8 +7,7 @@ feeding_time.
 /* Plans */
 
 +!has(food)[source(pet)] : feeding_time & stock(X) & X >= 5
-	<-	.print("Adok");
-		!fillBowl(5).
+	<-	!fillBowl(5).
 		
 +!has(food)[source(pet)] : feeding_time & stock(X) & X = 0
 	<-	.print("Empty stock");

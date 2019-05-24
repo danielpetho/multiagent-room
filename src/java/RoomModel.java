@@ -4,7 +4,6 @@ public class RoomModel {
 	boolean[] windows = new boolean[3];
 	int temp, moist, hum, stock;
 	boolean light;
-	boolean hasfood;
 
 	
 	RoomView view;
@@ -16,7 +15,6 @@ public class RoomModel {
 		windows[2] = true;
 		light = false;
 		stock = 100;
-		hasfood = false;
 	}
 	
 	public void setView(RoomView view) {
@@ -81,8 +79,27 @@ public class RoomModel {
 		return true;
 	}
 	
+	boolean decMoist(int m) {
+		this.moist -= m;
+		if(moist < 0) {
+			this.moist = 0;
+		}
+		view.refresh();
+		return true;
+		
+	}
+	
 	boolean setTemp(int temp) {
 		this.temp = temp;
+		view.refresh();
+		return true;
+	}
+	
+	boolean decTemp(int temp) {
+		this.temp -= temp;
+		if(this.temp < 0) {
+			this.temp = 0;
+		}
 		view.refresh();
 		return true;
 	}
@@ -106,14 +123,19 @@ public class RoomModel {
 	
 	boolean irrigate(int n) {
 		this.moist += n;
-		this.hum += n - 15;
+		
+		if(!windows[0] || !windows[1] || !windows[2]) {
+			this.hum += n - 15;
+			if(this.hum > 100) {
+				this.hum = 100;
+			}
+		}
+
 		if(this.moist > 100) {
 			this.moist = 100;
 		}
 		
-		if(this.hum > 100) {
-			this.hum = 100;
-		}
+		
 		
 		view.refresh();
 		return true;

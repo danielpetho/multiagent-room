@@ -50,6 +50,8 @@ public class Room extends Environment {
         		} else if (l.equals("win3")) {
         			result = rmodel.openWindow(2);
         		}
+        		
+        		rmodel.setHum(20);
         	}
         	
         	//close windows
@@ -59,6 +61,7 @@ public class Room extends Environment {
         			result = rmodel.closeWindow(0);
         		} else if (l.equals("win2")) {
         			result = rmodel.closeWindow(1);
+        			
         		} else if (l.equals("win3")) {
         			result = rmodel.closeWindow(2);
         		}
@@ -104,6 +107,16 @@ public class Room extends Environment {
         		}
         	}
         	
+        	if(action.getFunctor().equals("decm")) {
+        		try {
+        			int l = (int) ((NumberTerm)action.getTerm(0)).solve();
+        			result = rmodel.decMoist(l);
+        			clearPercepts("plant_manager");
+        		} catch ( Exception e) {
+        			logger.info("Empty value:decm");
+        		}
+        	}
+        	
         	if(action.equals(Literal.parseLiteral("order(food)"))) {
         		result = rmodel.stock();
         	}
@@ -112,11 +125,12 @@ public class Room extends Environment {
         		clearPercepts("thermo_light");
         		clearPercepts("feeding_system");
         		clearPercepts("pet");
+        		clearPercepts();
         	 updatePercepts();
              informAgsEnvironmentChanged();
         }
         
-        return true; // the action was executed with success
+        return result; // the action was executed with success
     }
 
     /** Called before the end of MAS execution */
@@ -131,6 +145,7 @@ public class Room extends Environment {
     	clearPercepts("thermo_light");
     	clearPercepts("feeding_system");
     	clearPercepts("pet");
+    	clearPercepts();
     	
     	for(int i = 0; i < 3; i++) {
     		if(rmodel.windows[i]) {
@@ -139,10 +154,7 @@ public class Room extends Environment {
     			addPercept("thermo_light", Literal.parseLiteral("winClosed(win" + i + ")"));
     		}
     	}
-    	
-    	if(rmodel.hasfood) {
-    		addPercept("feeding_system", Literal.parseLiteral("hasfood"));
-    	}
+    
     	
     	if(rmodel.light) {
     		addPercept(Literal.parseLiteral("lightOn"));
