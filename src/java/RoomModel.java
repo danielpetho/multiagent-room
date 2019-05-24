@@ -2,10 +2,10 @@
 public class RoomModel {
 	
 	boolean[] windows = new boolean[3];
-	int temp, moist, hum, stock;
+	int temp, moist, hum, stock, outtemp;
 	boolean light;
 
-	
+	Weather w;
 	RoomView view;
 	Room env;
 	
@@ -15,6 +15,8 @@ public class RoomModel {
 		windows[2] = true;
 		light = false;
 		stock = 100;
+		outtemp = 0;
+		w = new Weather();
 	}
 	
 	public void setView(RoomView view) {
@@ -23,6 +25,11 @@ public class RoomModel {
 	
 	public void setEnv(Room env) {
 		this.env = env;
+	}
+	
+	public void fetchWeather() {
+		this.outtemp = w.fetchTemp();
+		view.refresh();
 	}
 	
 	

@@ -9,21 +9,32 @@ import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Weather {
 	
 	private HttpClient httpClient;
+	public int temp;
+	
+	public Weather() {
+		temp = fetchTemp();
+	}
 	
 	static private final String URL = "http://api.openweathermap.org/data/2.5/weather?q=Budapest&appid=652d0573840664dd57ad1bfe19258bf6";
 	
 	private JSONObject doQuery (String subUrl) throws JSONException, IOException {
 		String responseBody = null;
 		HttpGet httpget = new HttpGet (URL);
+		
+		httpClient = new DefaultHttpClient();
 
 		HttpResponse response = this.httpClient.execute (httpget);
+
 		InputStream contentStream = null;
+		
 		try {
 			StatusLine statusLine = response.getStatusLine ();
 			if (statusLine == null) {
@@ -60,6 +71,28 @@ public class Weather {
 				contentStream.close ();
 		}
 		return new JSONObject (responseBody);
+	}
+	
+	public int fetchTemp() {
+		double temp = 0;
+		try {
+			JSONObject obj = this.doQuery(URL);
+			temp = obj.getJSONObject("main").getDouble("temp");
+			/*
+			 for (int i = 0; i < arr.length(); i++) {
+		            temp = arr.getJSONObject(i).getString("temp");
+		            System.out.println(temp);
+		            
+		        }*/
+		} catch (IOException e) {
+			
+		}
+		
+		int temperature = ((int) Math.round(temp - 273.15));
+		return temperature;
+		
+		
+		
 	}
 	
 }
