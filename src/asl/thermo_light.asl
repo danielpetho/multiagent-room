@@ -60,7 +60,7 @@
 +!save : (moist(X)[source(plant_manager)] & X < 10) 
 	<-	temp(29);
 		-moist(X)[source(plant_manager)]
-		.print("Plant in danger").
+		.print("Plant is in danger!").
 		
 +!save : (moist(X)[source(plant_manager)] & X >= 35) & save(pet)[source(feeding_system)]
 	<-	-save(pet)[source(feeding_system)];

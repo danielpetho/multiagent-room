@@ -108,9 +108,16 @@ public class RoomView {
 		}
 		
 		lWeather.setText("Temperature outdoors: " + rmodel.outtemp + "°C");
+		
 		humLabel.setText("Humidity: " + rmodel.hum + "%");
+		spHum.setValue(new Integer(rmodel.hum));
+		
 		moistLabel.setText("Moisture: " + rmodel.moist + "%");
+		spMoist.setValue(new Integer(rmodel.moist));
+		
 		tempLabel.setText("Temperature: " + rmodel.temp + "°C");
+		spTemp.setValue(new Integer(rmodel.temp));
+		
 		stock.setValue(rmodel.stock);
 		
 	}
