@@ -31,6 +31,10 @@ feeding_time.
 +!feeding_time : true 
 	<-	.wait(1000 * 20);
 		+feeding_time.
+
++temp(X)[source(percept)] : X > 31
+	<- .send(thermo_light, tell, save(pet));
+		.print("Too hot for your pet!").
 		
 
 

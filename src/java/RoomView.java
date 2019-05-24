@@ -271,8 +271,6 @@ public class RoomView {
 	        	int value = (Integer) spin.getValue();
 	        	humLabel.setText("Humidity: " + value + "%");
 	        	rmodel.setHum(value);
-	        	env.updatePercepts();
-	    		env.informAgsEnvironmentChanged();
 	        }  
 	     });
 		

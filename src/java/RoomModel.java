@@ -104,9 +104,9 @@ public class RoomModel {
 		
 	}
 	
-	boolean irrigate() {
-		this.moist += 50;
-		this.hum += 20;
+	boolean irrigate(int n) {
+		this.moist += n;
+		this.hum += n - 15;
 		if(this.moist > 100) {
 			this.moist = 100;
 		}
@@ -116,8 +116,6 @@ public class RoomModel {
 		}
 		
 		view.refresh();
-		env.updatePercepts();
-		env.informAgsEnvironmentChanged();
 		return true;
 	}
 	

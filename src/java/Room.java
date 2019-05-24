@@ -74,7 +74,7 @@ public class Room extends Environment {
         	
         	
         	//set the temp value
-        	if(action.getFunctor().equals("setTemp")) {
+        	if(action.getFunctor().equals("temp")) {
         		try {
         			int l = (int) ((NumberTerm)action.getTerm(0)).solve();
         			result = rmodel.setTemp(l);
@@ -94,15 +94,24 @@ public class Room extends Environment {
         		}
         	}
         	
-        	if(action.equals(Literal.parseLiteral("irrigate"))) {
-        		result = rmodel.irrigate();
+        	if(action.getFunctor().equals("irrigate")) {
+        		try {
+        			int l = (int) ((NumberTerm)action.getTerm(0)).solve();
+        			result = rmodel.irrigate(l);
+        			clearPercepts("plant_manager");
+        		} catch ( Exception e) {
+        			logger.info("Empty value:irrigate");
+        		}
         	}
         	
         	if(action.equals(Literal.parseLiteral("order(food)"))) {
         		result = rmodel.stock();
         	}
         	       	
-        	   	
+        		clearPercepts("plant_manager");
+        		clearPercepts("thermo_light");
+        		clearPercepts("feeding_system");
+        		clearPercepts("pet");
         	 updatePercepts();
              informAgsEnvironmentChanged();
         }
@@ -120,6 +129,8 @@ public class Room extends Environment {
     void updatePercepts() {
     	clearPercepts("plant_manager");
     	clearPercepts("thermo_light");
+    	clearPercepts("feeding_system");
+    	clearPercepts("pet");
     	
     	for(int i = 0; i < 3; i++) {
     		if(rmodel.windows[i]) {
@@ -139,12 +150,12 @@ public class Room extends Environment {
     		addPercept(Literal.parseLiteral("lightOff"));
     	}
     	
-    	addPercept(Literal.parseLiteral("temp(" + rmodel.temp + ")"));
+    	addPercept("thermo_light", Literal.parseLiteral("temp(" + rmodel.temp + ")"));
+    	addPercept("plant_manager", Literal.parseLiteral("temp(" + rmodel.temp + ")"));
+    	addPercept("feeding_system", Literal.parseLiteral("temp(" + rmodel.temp + ")"));
     	addPercept("plant_manager", Literal.parseLiteral("hum(" + rmodel.hum + ")"));
     	addPercept("plant_manager", Literal.parseLiteral("moist(" + rmodel.moist + ")"));
-    	addPercept("feeding_system", Literal.parseLiteral("stock(" + rmodel.stock + ")"));
-    	System.out.println(rmodel.stock);
-    	
+    	addPercept("feeding_system", Literal.parseLiteral("stock(" + rmodel.stock + ")"));    	
     	
     }
 }
