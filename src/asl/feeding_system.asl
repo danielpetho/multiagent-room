@@ -9,7 +9,7 @@ feeding_time.
 +!has(food)[source(pet)] : feeding_time & stock(X) & X >= 5
 	<-	.print("I will give you food");
 		!fillBowl(5).
-		
+
 +!has(food)[source(pet)] : feeding_time & stock(X) & X = 0
 	<-	.print("Oh, no! Stock is empty!");
 		order(food);
