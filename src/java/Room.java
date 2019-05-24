@@ -167,6 +167,8 @@ public class Room extends Environment {
     		addPercept(Literal.parseLiteral("lightOff"));
     	}
     	
+    	rmodel.fetchWeather();
+    	addPercept("thermo_light", Literal.parseLiteral("out_temp(" + rmodel.outtemp + ")"));
     	addPercept("thermo_light", Literal.parseLiteral("temp(" + rmodel.temp + ")"));
     	addPercept("plant_manager", Literal.parseLiteral("temp(" + rmodel.temp + ")"));
     	addPercept("feeding_system", Literal.parseLiteral("temp(" + rmodel.temp + ")"));

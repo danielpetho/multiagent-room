@@ -25,13 +25,13 @@ public class RoomView {
 	JFrame frame;
 	
 	//labels
-	JLabel winLabel1, winLabel2, winLabel3, stockLabel, tempLabel, moistLabel, humLabel, lightLabel;
+	JLabel winLabel1, winLabel2, winLabel3, stockLabel, tempLabel, moistLabel, humLabel, lightLabel, weatherLabel;
 	
 	//buttons
 	JButton btnWin1,btnWin2,btnWin3, btnLight, btnFill;
 	
 	//feedback
-	JLabel lWin1, lWin2, lWin3, lLight, lFill, lTemp, lMoisture, lHum;
+	JLabel lWin1, lWin2, lWin3, lLight, lFill, lTemp, lMoisture, lHum, lWeather;
 	
 	//spinners
 	JSpinner spTemp, spMoist, spHum;
@@ -107,6 +107,7 @@ public class RoomView {
 			lLight.setText("Off");
 		}
 		
+		lWeather.setText("Out temperature: " + rmodel.outtemp + "°C");
 		humLabel.setText("Humidity: " + rmodel.hum + "%");
 		moistLabel.setText("Moisture: " + rmodel.moist + "%");
 		tempLabel.setText("Temperature: " + rmodel.temp + "°C");
@@ -183,6 +184,10 @@ public class RoomView {
 		stock.setBounds(140, 290, 100, 20);
 		btnFill = new JButton("Fill");
 		btnFill.setBounds(230, 290, 80, 20);
+		
+		lWeather = new JLabel("");
+		lWeather.setBounds(50, 330, 200, 30);
+		
 		
 		
 		
@@ -302,6 +307,8 @@ public class RoomView {
 		frame.add(stockLabel);
 		frame.add(stock);
 		frame.add(btnFill);
+		
+		frame.add(lWeather);
 		
 		refresh();
 		frame.setVisible(true);

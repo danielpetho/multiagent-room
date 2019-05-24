@@ -19,6 +19,10 @@
 	<-	-hum(Z)[source(plant_manager)[source(percept)]];
 		-hum(Z).
 		
++outtemp(X) : X <= 10
+	<-	close(win1);
+		close(win2);
+		close(win3).
 
 //if light on, close all the windoss
 +lightOn[source(percept)] : winOpen(win0)[source(percept)] & winOpen(win1)[source(percept)] & winOpen(win2)[source(percept)]
