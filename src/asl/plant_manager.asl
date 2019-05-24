@@ -2,7 +2,6 @@
 
 !irrigate.
 
-
 +!irrigate : moist(X) & X < 5
 	<-	.wait(1000 * 10);
 		irrigate(30);
@@ -18,7 +17,6 @@
 		decm(5);
 		!irrigate.
 		
-	
 +!irrigate : temp(X) & X <= 10
 	<-	.print("Plant in dangerous condition!");
 		.send(thermo_light, achieve, temp(30));
@@ -28,4 +26,3 @@
 +!irrigate : temp(X) & X >= 34
 	<-	irrigate(25);
 		!irrigate.
-	

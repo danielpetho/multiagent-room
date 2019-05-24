@@ -3,6 +3,7 @@
 import jason.asSyntax.*;
 import jason.asSyntax.parser.ParseException;
 import jason.environment.*;
+
 import java.util.logging.*;
 
 public class Room extends Environment {
@@ -29,10 +30,15 @@ public class Room extends Environment {
     	
     	
     }
+    
+    
 
     @Override
     public boolean executeAction(String agName, Structure action) {
-    	
+        logger.info("Hey, I'm trying to execute "+action+", but not implemented!");
+        logger.info(agName);
+        if (true) { // you may improve this condition
+  	
     	boolean result = false;
     	
     	
@@ -126,8 +132,9 @@ public class Room extends Environment {
         		clearPercepts("feeding_system");
         		clearPercepts("pet");
         		clearPercepts();
-        	 updatePercepts();
-             informAgsEnvironmentChanged();
+          
+        	  updatePercepts();
+            informAgsEnvironmentChanged();
         }
         
         return result; // the action was executed with success
