@@ -1,55 +1,40 @@
-//TODOs: Quantity
-
-
 /* Initial beliefs and rules */
-//It's feeding time, the bowl is empty, and there is food in stock
-~has(food).
-feedingTime.
-stock(food).
+
 
 /* Initial goals */
-
-!check_feeding_time.
+feeding_time.
 
 /* Plans */
 
-//fill bowl if there is food in stock, there is feeding time, and the bowl is empty
-@fill1
-+!fillBowl(food) : stock(food)
-	<-	-feedingTime;
-		+has(food);
-		.print("Filled");
-		.send(pet, tell, has(food));
-		true.
-	
-//try to fill bowl, and ask owner to stock if there is not enough 
-@fill2
-+!fillBowl(food) : not stock(food)
-	<-	.send(owner, achieve, order(food));
-		.print("We run out of food!").
-
-+feedingTime : ~has(food)
-	<- !fillBowl(food).
-	
-+feedingTime : has(food)
-	<- !fillBowl(food);
-		.print("It's dead.").
++!has(food)[source(pet)] : feeding_time & stock(X) & X >= 5
+	<-	!fillBowl(5).
 		
-//Update the state of the bowl
-+eaten(has(food)) [source(pet)] : true
-	<- +~has(food).
-	
-//when the owner fill the stock, add belief there is food in stock
-+delivered(food) [source(owner)] : true
-	<- +stock(food).
++!has(food)[source(pet)] : feeding_time & stock(X) & X = 0
+	<-	.print("Empty stock");
+		order(food);
+		.send(pet, tell, no_food(food)).
+		
++!has(food)[source(pet)] : not feeding_time
+	<-	.print("Too fat");
+		.send(pet, tell, too_much(food)).
+		
++!fillBowl(N) : true
+	<-	.print("Fill");
+		fillBowl(N);
+		.send(pet, tell, has(food));
+		-feeding_time.
+		
+-feeding_time : true
+	<-	!feeding_time.
+		
++!feeding_time : true 
+	<-	.wait(1000 * 20);
+		+feeding_time.
 
-+!check_feeding_time : true
-	<-	.wait(10000);
-		.print("It's feeding time");
-		+feedingTime;
-		!check_feeding_time.	
++temp(X)[source(percept)] : X > 31
+	<- .send(thermo_light, tell, save(pet));
+		.print("Too hot for your pet!").
+		
 
-
-	
 
 	
