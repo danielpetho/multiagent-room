@@ -107,7 +107,7 @@ public class RoomView {
 			lLight.setText("Off");
 		}
 		
-		lWeather.setText("Temperature outdoors: " + rmodel.outtemp + "°C");
+		lWeather.setText("Temperature outside (Budapest): " + rmodel.outtemp + "°C");
 		
 		humLabel.setText("Humidity: " + rmodel.hum + "%");
 		spHum.setValue(new Integer(rmodel.hum));
@@ -167,7 +167,7 @@ public class RoomView {
 		SpinnerModel tempValue = new SpinnerNumberModel(rmodel.temp, -10, 35, 1);
 		spTemp = new JSpinner(tempValue);
 		spTemp.setBounds(230, 180, 50, 30);
-		tempLabel = new JLabel("Temperature: " + rmodel.temp + "Â°C");
+		tempLabel = new JLabel("Temperature: " + rmodel.temp + "°C");
 		tempLabel.setBounds(50, 180, 200, 30);
 		
 		SpinnerModel moistValue = new SpinnerNumberModel(rmodel.moist, 0, 100, 1);
@@ -193,7 +193,7 @@ public class RoomView {
 		btnFill.setBounds(230, 290, 80, 20);
 		
 		lWeather = new JLabel("");
-		lWeather.setBounds(50, 330, 200, 30);
+		lWeather.setBounds(40, 330, 250, 30);
 		
 		
 		
@@ -263,7 +263,7 @@ public class RoomView {
 	        public void stateChanged(ChangeEvent e) {
 	        	JSpinner spin = (JSpinner) e.getSource();
 	        	int value = (Integer) spin.getValue();
-	        	tempLabel.setText("Temperature: " + value + "Â°C");
+	        	tempLabel.setText("Temperature: " + value + "°C");
 	        	rmodel.setTemp(value);
 	        }  
 	     });
