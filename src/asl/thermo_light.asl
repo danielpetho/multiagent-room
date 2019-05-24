@@ -12,7 +12,7 @@
 	<-	-hum(Z)[source(plant_manager)[source(percept)]];
 		-hum(Z);
 		open(win1);
-		.print("Open windows because the air is too humid");
+		.print("Opening windows because the air is too humid");
 		.wait(1000).
 		
 +hum(Z) : Z <= 60
@@ -29,7 +29,7 @@
 	<-	close(win1);
 		close(win2);
 		-lightOff[source(percept)];
-		.print("Lights on, close windows");
+		.print("Lights on, closeing windows");
 		close(win3).
 		
 		
@@ -49,13 +49,13 @@
 +!save : (moist(X)[source(plant_manager)] & X < 35 & X > 10) & not save(pet)[source(feeding_system)]
 	<-	temp(30);
 		-moist(X)[source(plant_manager)]
-		.print("Set the temperature to 30C for the plant.").
+		.print("Seting the temperature to 30C for the plant.").
 	
 +!save : (moist(X)[source(plant_manager)] & X < 35 & X > 10) & save(pet)[source(feeding_system)]
 	<-	-save(pet)[source(feeding_system)];
 		temp(26);
 		-moist(X)[source(plant_manager)]
-		.print("Ideal condition").
+		.print("The environment is in ideal condition").
 	
 +!save : (moist(X)[source(plant_manager)] & X < 10) 
 	<-	temp(29);

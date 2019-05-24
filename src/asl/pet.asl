@@ -15,7 +15,7 @@ hungry.
 
 //Eat if the bowl is not empty.	
 +!eat : has(food)
-	<-	.print("I'm full'");
+	<-	.print("I'm full");
 		-has(food);
 		-has(food)[source(feeding_system)];
 		-too_much(food)[source(feeding_system)];

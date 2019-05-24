@@ -18,7 +18,7 @@
 		!irrigate.
 		
 +!irrigate : temp(X) & X <= 10
-	<-	.print("Plant in dangerous condition!");
+	<-	.print("Plant is in dangerous condition!");
 		.send(thermo_light, achieve, temp(30));
 		.wait(1000);
 		!irrigate.
