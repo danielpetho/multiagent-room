@@ -35,11 +35,8 @@ public class Room extends Environment {
 
     @Override
     public boolean executeAction(String agName, Structure action) {
-        logger.info("Hey, I'm trying to execute "+action+", but not implemented!");
-        logger.info(agName);
-        if (true) { // you may improve this condition
-  	
-    	boolean result = false;
+
+        boolean result = false;
     	
     	
     	System.out.println("["+agName+"] doing: "+action);
@@ -135,10 +132,11 @@ public class Room extends Environment {
           
         	  updatePercepts();
             informAgsEnvironmentChanged();
-        }
         
+        }
         return result; // the action was executed with success
     }
+
 
     /** Called before the end of MAS execution */
     @Override
