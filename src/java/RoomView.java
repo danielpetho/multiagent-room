@@ -20,6 +20,7 @@ import javax.swing.event.ChangeListener;
 public class RoomView {
 
 	RoomModel rmodel;
+	Room env;
 	
 	JFrame frame;
 	
@@ -66,6 +67,10 @@ public class RoomView {
 	
 	public void setModel(RoomModel model) {
 		rmodel = model;
+	}
+	
+	public void setEnv(Room env) {
+		this.env = env;
 	}
 	
 	public void refresh() {
@@ -266,6 +271,8 @@ public class RoomView {
 	        	int value = (Integer) spin.getValue();
 	        	humLabel.setText("Humidity: " + value + "%");
 	        	rmodel.setHum(value);
+	        	env.updatePercepts();
+	    		env.informAgsEnvironmentChanged();
 	        }  
 	     });
 		

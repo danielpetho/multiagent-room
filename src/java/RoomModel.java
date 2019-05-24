@@ -8,9 +8,10 @@ public class RoomModel {
 
 	
 	RoomView view;
+	Room env;
 	
 	public RoomModel() {
-		windows[0] = false;
+		windows[0] = true;
 		windows[1] = true;
 		windows[2] = true;
 		light = false;
@@ -20,6 +21,10 @@ public class RoomModel {
 	
 	public void setView(RoomView view) {
 		this.view = view;
+	}
+	
+	public void setEnv(Room env) {
+		this.env = env;
 	}
 	
 	
@@ -97,6 +102,23 @@ public class RoomModel {
 			return false;
 		}
 		
+	}
+	
+	boolean irrigate() {
+		this.moist += 50;
+		this.hum += 20;
+		if(this.moist > 100) {
+			this.moist = 100;
+		}
+		
+		if(this.hum > 100) {
+			this.hum = 100;
+		}
+		
+		view.refresh();
+		env.updatePercepts();
+		env.informAgsEnvironmentChanged();
+		return true;
 	}
 	
 	

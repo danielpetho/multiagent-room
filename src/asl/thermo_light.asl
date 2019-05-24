@@ -3,18 +3,20 @@
 /* Initial goals */
 
 
-/* Plans */
++winOpen(win1) : true
+	<-	.print("win 1 open").
 
-+win1Open : true
-	<- .print("Wind 1 Open!").
+/* Plans */
+/*
++winOpen(win1) : true
+	<- .print("Win 1 Open!").
 	
-+win1Closed : true
-	<- .print("Wind 1 Closed!").
++winClosed(win1) : true
+	<- .print("Win 1 Closed!").
 	
-+term : true
-	<- .print("na!");
++!close : winOpen(win1)
+	<- 	.print("becsukom");
+		-winOpen(win1);
 		close(win1).
 
-+!close(win1) : true
-	<- .print("bezárom%");
-	true.
+*/

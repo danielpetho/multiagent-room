@@ -20,6 +20,8 @@ public class Room extends Environment {
     	rmodel = new RoomModel();
     	view = new RoomView(rmodel);
     	rmodel.setView(view);
+    	view.setEnv(this);
+    	rmodel.setEnv(this);
 		updatePercepts();
     }
     
@@ -86,11 +88,20 @@ public class Room extends Environment {
         		try {
         			int l = (int) ((NumberTerm)action.getTerm(0)).solve();
         			result = rmodel.fill(l);
-        			clearPercepts();
+        			clearPercepts("feeding_system");
         		} catch ( Exception e) {
         			logger.info("Empty value: fill");
         		}
         	}
+        	
+        	if(action.equals(Literal.parseLiteral("irrigate"))) {
+        		result = rmodel.irrigate();
+        	}
+        	
+        	if(action.equals(Literal.parseLiteral("order(food)"))) {
+        		result = rmodel.stock();
+        	}
+        	       	
         	   	
         	 updatePercepts();
              informAgsEnvironmentChanged();
@@ -107,7 +118,8 @@ public class Room extends Environment {
     
     
     void updatePercepts() {
-    	clearPercepts();
+    	clearPercepts("plant_manager");
+    	clearPercepts("thermo_light");
     	
     	for(int i = 0; i < 3; i++) {
     		if(rmodel.windows[i]) {
@@ -131,6 +143,7 @@ public class Room extends Environment {
     	addPercept("plant_manager", Literal.parseLiteral("hum(" + rmodel.hum + ")"));
     	addPercept("plant_manager", Literal.parseLiteral("moist(" + rmodel.moist + ")"));
     	addPercept("feeding_system", Literal.parseLiteral("stock(" + rmodel.stock + ")"));
+    	System.out.println(rmodel.stock);
     	
     	
     }
